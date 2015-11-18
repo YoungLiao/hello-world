@@ -1,0 +1,14 @@
+public Tuple<int, string, string> GetEmployee() {
+    int employeeId = 1001;
+    string firstName = "Rudy";
+    string lastName = "Koertson";
+
+    //Create a tuple and return
+    return Tuple.Create(employeeId, firstName, lastName);
+}
+
+var result = GetEmployee();
+
+var employeeId = result.Item1;
+var firstName = result.Item2;
+var lastName = result.Item3;
