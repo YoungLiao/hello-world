@@ -1,0 +1,395 @@
+@{
+    ViewBag.Title = "Add New Employee Info";
+    ViewBag.TitleLangKey = "employee.addnewemployee";
+}
+<style>
+    form {
+        background: #ffffff;
+        padding: 15px 30px;
+    }
+</style>
+<h1 class="header" data-lang-key="employee.headtitle">新增雇员信息</h1>
+<form id="formEmployeeInfo" method="POST" class="form-horizontal">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">个人信息</h3>
+        </div>
+        <div class="panel-body">
+            <fieldset>
+                <div class="form-group">
+                    <div class="col-md-6 col-sm-6 col-md-offset-6">
+                        <img id="headportrait" src="~/images/headportrait.jpg" onerror="this.src='../images/headportrait.jpg'" alt="head portrait" width="120" height="120" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-6 col-sm-6">
+                        <input type="text" class="form-control floating-label" id="EmployeeName" name="EmployeeName" placeholder="姓名" required maxlength="50">
+                    </div>
+                    <div class="col-md-6 col-sm-6">
+                        <div class="input-group">
+                            <input type="text" readonly="" class="form-control floating-label" placeholder="导入照片...">
+                            <input type="file" name="portraitFile" id="portraitFile" accept="image/*">
+                            <span class="input-group-btn">
+                                <button type="button" id="upload" class="btn btn-primary btn-sm"><i class="fa fa-upload" aria-hidden="true"></i> 上传</button>
+                            </span>
+                        </div>
+                        <input type="hidden" id="PortraitFileName" name="PortraitFileName" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-6 col-sm-6">
+                        <input type="text" class="form-control floating-label" id="EnglishName" name="EnglishName" placeholder="英文名" maxlength="50">
+                    </div>
+                    <div class="col-md-6">
+                        <input type="datetime" class="form-control floating-label" id="Birthday" name="Birthday" placeholder="出生年月">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-6">
+                        @Html.DropDownList("Gender", ViewData["Gender"] as IEnumerable<SelectListItem>, new Dictionary<string, object> { { "class", "form-control floating-label" }, { "placeholder", "性别" }, { "required", "required" } })
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control floating-label" id="Nationality" name="Nationality" placeholder="民族" maxlength="15">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-6">
+                        @Html.DropDownList("Degree", ViewData["Degree"] as IEnumerable<SelectListItem>, new Dictionary<string, object> { { "class", "form-control floating-label" }, { "placeholder", "学历" }, { "required", "true" } })
+                    </div>
+                    <div class="col-md-6">
+                        @Html.DropDownList("MaritalStatus", ViewData["MaritalStatus"] as IEnumerable<SelectListItem>, new Dictionary<string, object> { { "class", "form-control floating-label" }, { "placeholder", "婚否" } })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-6">
+                        @Html.DropDownList("CertificateType", ViewData["CertificateType"] as IEnumerable<SelectListItem>, new Dictionary<string, object> { { "class", "form-control floating-label" }, { "placeholder", "证件类型" }, { "required", "true" } })
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control floating-label" id="CertificateNumber" name="CertificateNumber" placeholder="证件号码" maxlength="50">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-6">
+                        <input type="text" class="form-control floating-label" id="RegisteredResidence" name="RegisteredResidence" placeholder="户口所在地" maxlength="100">
+                    </div>
+                    <div class="col-md-6">
+                        @Html.DropDownList("registeredResidenceStatus", ViewData["registeredResidenceStatus"] as IEnumerable<SelectListItem>, new Dictionary<string, object> { { "class", "form-control floating-label" }, { "placeholder", "户口状态" }, { "required", "true" } })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-6">
+                        <input type="text" class="form-control floating-label" id="Address" name="Address" placeholder="联系地址" maxlength="200">
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control floating-label" id="ZipCode" name="ZipCode" placeholder="邮政编码" maxlength="10">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-6">
+                        <input type="text" class="form-control floating-label" id="MobilePhone" name="MobilePhone" placeholder="手机" maxlength="15">
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control floating-label" id="Telephone" name="Telephone" placeholder="联系电话" maxlength="15">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-6">
+                        <input type="email" class="form-control floating-label" id="EmailAddress" name="EmailAddress" placeholder="电子邮件">
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control floating-label" id="GraduatedSchool" name="GraduatedSchool" placeholder="毕业院校" maxlength="50">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-6">
+                        <input type="text" class="form-control floating-label" id="LanguageSkills" name="LanguageSkills" placeholder="语言技能" maxlength="100">
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control floating-label" id="ComputerSkills" name="ComputerSkills" placeholder="电脑技能" maxlength="100">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-6">
+                        <input type="text" class="form-control floating-label" id="EmergencyContact" name="EmergencyContact" placeholder="紧急联系人" maxlength="50">
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control floating-label" id="EmergenncyContactNumber" name="EmergenncyContactNumber" placeholder="紧急联系电话" maxlength="15">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-6">
+                        <input type="text" class="form-control floating-label" id="FamilyContact" name="FamilyContact" placeholder="家庭联系人" maxlength="50">
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control floating-label" id="FamilyContactNumber" name="FamilyContactNumber" placeholder="家庭联系电话" maxlength="15">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-6">
+                        @Html.DropDownList("CurrentStatus", ViewData["CurrentStatus"] as IEnumerable<SelectListItem>, new Dictionary<string, object> { { "class", "form-control floating-label" }, { "placeholder", "状态" }, { "required", "true" } })
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">就职信息</h3>
+        </div>
+        <div class="panel-body">
+            <fieldset>
+                <div class="form-group">
+                    <div class="col-md-6">
+                        <input type="text" class="form-control floating-label" id="EmployeeSerialNumber" name="EmployeeSerialNumber" placeholder="员工编号" required maxlength="15">
+                    </div>
+                    <div class="col-md-6">
+                        @Html.DropDownList("JobStatus", ViewData["JobStatus"] as IEnumerable<SelectListItem>, new Dictionary<string, object> { { "class", "form-control floating-label" }, { "placeholder", "就职状态" }, { "required", "true" } })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-6">
+                        <input class="form-control floating-label" type="text" id="DeptarmentDisplay"  readonly value="" placeholder="所属部门" required />
+                        <input type="hidden" id="Deptarment" name="Deptarment" />
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control floating-label" id="EmployeeJobNumber" name="EmployeeJobNumber" placeholder="工号" maxlength="15">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-6">
+                        @Html.DropDownList("Position", ViewData["Position"] as IEnumerable<SelectListItem>, new Dictionary<string, object> { { "class", "form-control floating-label" }, { "placeholder", "职位" }, { "required", "true" } })
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control floating-label" id="ExtensionNumber" name="ExtensionNumber" placeholder="分机" maxlength="10">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-6">
+                        <input type="text" class="form-control floating-label" id="BankAccount" name="BankAccount" placeholder="银行账号" maxlength="25">
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control floating-label" id="ReservedFundsAccount" name="ReservedFundsAccount" placeholder="公积金账号" maxlength="20">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-6">
+                        <input type="datetime" class="form-control floating-label" id="HiredDate" name="HiredDate" placeholder="录用日期">
+                    </div>
+                    <div class="col-md-6">
+                        <input type="datetime" class="form-control floating-label" id="OnboardDate" name="OnboardDate" placeholder="入职日期">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-6">
+                        <input type="datetime" class="form-control floating-label" id="BeRegularDate" name="BeRegularDate" placeholder="转正日期">
+                    </div>
+                    <div class="col-md-6">
+                        <input type="datetime" class="form-control floating-label" id="ContractExpiredDate" name="ContractExpiredDate" placeholder="合同到期">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-6">
+                        <input type="datetime" class="form-control floating-label" id="AnnualVacationStartDate" name="AnnualVacationStartDate" placeholder="年假和带薪病假起始日期">
+                    </div>
+                    <div class="col-md-6">
+                        <input type="datetime" class="form-control floating-label" id="LeaveDate" name="LeaveDate" placeholder="离职日期">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-6">
+                        <input type="number" class="form-control floating-label" id="InitialAnualVacationHours" name="InitialAnualVacationHours" placeholder="基始年假数(小时)" step="0.5" min="0">
+                    </div>
+                    <div class="col-md-6">
+                        <input type="number" class="form-control floating-label" id="TotalAnualVacationHours" name="TotalAnualVacationHours" placeholder="总年假数(小时)" step="0.5" min="0">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-6">
+                        <input type="number" class="form-control floating-label" id="UsedAnualVacationHours" name="UsedAnualVacationHours" placeholder="实休年假数(小时)" step="0.5" min="0">
+                    </div>
+                    <div class="col-md-6">
+                        <input type="number" class="form-control floating-label" id="TotalSickLeaveHours" name="TotalSickLeaveHours" placeholder="可用病假假数(小时)" step="0.5" min="0">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-6">
+                        <input type="number" class="form-control floating-label" id="UsedSickLeaveHours" name="UsedSickLeaveHours" placeholder="已用病假数(小时)" step="0.5" min="0">
+                    </div>
+                    <div class="col-md-6">
+                        <input type="number" class="form-control floating-label" id="TotalShiftLeaveHours" name="TotalShiftLeaveHours" placeholder="可用调休时间(小时)" step="0.5" min="0">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-6">
+                        <input type="number" class="form-control floating-label" id="UsedShiftLeaveHours" name="UsedShiftLeaveHours" placeholder="已用调休时间(小时)" step="0.5" min="0">
+                    </div>
+                    <div class="col-md-6">
+                        <input type="number" class="form-control floating-label" id="PersonalAffairsLeaveHours" name="PersonalAffairsLeaveHours" placeholder="事假时间(小时)" step="0.5" min="0">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <textarea class="form-control floating-label" rows="5" id="Remark" name="Remark" placeholder="备注" maxlength="500"></textarea>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">四金缴纳信息</h3>
+        </div>
+        <div class="panel-body">
+            <fieldset>
+                <div class="form-group">
+                    <div class="col-md-6">
+                        <input type="number" class="form-control floating-label" id="SocialSecurityBase" name="SocialSecurityBase" placeholder="社保缴纳基数" step="any" min="0">
+                    </div>
+                    <div class="col-md-6">
+                        <input type="number" class="form-control floating-label" id="ReservedFundsBase" name="ReservedFundsBase" placeholder="公积金缴纳基数" step="any" min="0">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-6">
+                        <input type="datetime" class="form-control floating-label" id="SocialSecurityStartDate" name="SocialSecurityStartDate" placeholder="社保开始缴纳日期">
+                    </div>
+                    <div class="col-md-6">
+                        <input type="datetime" class="form-control floating-label" id="ReservedFundsStartDate" name="ReservedFundsStartDate" placeholder="公积金开始缴纳日期">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-6">
+                        <input type="datetime" class="form-control floating-label" id="StopDate" name="StopDate" placeholder="停止缴纳日期">
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+    
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">角色设置</h3>
+        </div>
+        <div class="panel-body">
+            <fieldset>
+                <div class="form-group">
+                    <div class="col-md-6">
+                        <select id="RoleList" name="Roles" multiple="multiple" required></select>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+    <div>
+        <button type="submit" class="btn btn-primary" data-lang-key="btn.save">Save</button>
+        <a href="javascript:void(0)" class="btn btn-default" id="cancel" data-lang-key="btn.cancel">Cancel</a>
+    </div>
+</form>
+
+@section scripts
+{
+    <script type="text/javascript">
+
+        $('#DeptarmentDisplay').vxiSelect({
+            check: {
+                enable: true,
+                chkStyle: "radio",
+                radioType: "all"
+            },
+            async: {
+                enable: true,
+                url: '@Url.Action("LoadList", "Organization")',
+                autoParam: ["id"]
+            }
+        }, '#Deptarment');
+
+        //预览照片
+        $("#portraitFile").change(function() {
+            readURL(this);
+        });
+
+        //上传照片
+        $("#upload").click(function() {
+            UploadPortraitFile('@Url.Action("UploadEmployeePortrait", "Employee")');
+        });
+
+        $("#cancel").click(function() {
+            $.vxi.spa.href('@Url.Action("Index", "Employee")');
+        });
+
+        $(function() {
+            $("#EmployeeName").focus();
+            $("#formEmployeeInfo").validate({
+                ignore: [],
+                rules : {
+                    RoleList : {
+                        required: true
+                    },
+                    OnboardDate : {
+                        required: {
+                            depends: function() {
+                                return $("#HiredDate").val() == "";
+                            }
+                        }
+                    }
+                },
+                messages: {
+                    RoleList: {
+                        required: "必填字段"
+                    },
+                    OnboardDate: {
+                        required: "录用日期与入职日期至少需填一项"
+                    }
+                }
+            });
+            $("#Birthday, #ChangeEffectiveDate, #HiredDate, #OnboardDate, #BeRegularDate,#ContractExpiredDate, " +
+                "#AnnualVacationStartDate, #LeaveDate, #SocialSecurityStartDate, #ReservedFundsStartDate, #StopDate").datepicker(
+            {
+                language: "zh-CN",
+                format: 'yyyy/mm/dd',
+                todayBtn: "linked",
+                autoclose: true,
+                todayHighlight: true,
+                orientation: "left"
+            });
+
+            var opt = {
+                url: '@Url.Action("LoadRoleList", "Employee")',
+                showMessage: false,
+                dataSuccess: function (data) {
+                    $("#RoleList").select2({
+                        data: data.Data,
+                        placeholder: $.vxi.i18n.lang()["employee"]["setRole"],
+                        width: '100%'
+                    });
+                }
+            };
+            $.vxi.ajax(opt);
+        });
+
+        $("#formEmployeeInfo").submit(function (ev) {
+            var validator = $("#formEmployeeInfo").validate();
+            var flag = validator.form();
+            if (!flag)
+                return false;
+
+            var options = {
+                url: '@Url.Action("Create", "Employee")',
+                data:
+                {                  
+                    dto: JSON.stringify($("#formEmployeeInfo").serializeJson()),
+                    roles: $("#RoleList").val()
+                },
+                dataSuccess: function() {
+                    $.vxi.spa.href('@Url.Action("Index", "Employee")');
+                }
+            };
+
+            $.vxi.ajax(options);
+            ev.preventDefault();
+        });
+
+    </script>
+}
+
+
