@@ -1,0 +1,9 @@
+--移除回车符
+
+update master_location
+SET street_number = REPLACE(street_number, CHAR(13), '')
+
+--移除换行符
+
+update master_location
+SET street_number = REPLACE(street_number, CHAR(10), '')
